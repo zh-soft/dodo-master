@@ -1,0 +1,22 @@
+server:
+  port: 80
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://101.200.42.194:3306/mobanker_erp?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 123456
+  thymeleaf:
+    mode: LEGACYHTML5
+    cache: false
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+logging:
+  level:
+    root: info
+    org.mybatis: info
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
