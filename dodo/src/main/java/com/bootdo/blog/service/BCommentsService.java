@@ -10,11 +10,11 @@ import java.util.Map;
  * 
  * @author chglee
  * @email 1992lcg@163.com
- * @date 2017-09-08 11:18:55
+ * @date 2017-09-16 16:47:55
  */
 public interface BCommentsService {
 	
-	BCommentsDO get(Long id);
+	BCommentsDO get(Integer id);
 	
 	List<BCommentsDO> list(Map<String, Object> map);
 	

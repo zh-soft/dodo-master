@@ -8,7 +8,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 /**
@@ -16,7 +15,7 @@ import org.apache.ibatis.annotations.Update;
  * 
  * @author chglee
  * @email 1992lcg@163.com
- * @date 2017-09-11 13:48:19
+ * @date 2017-09-16 16:47:55
  */
 @Mapper
 public interface BContentMapper {
@@ -81,7 +80,6 @@ public interface BContentMapper {
 			"</script>")
 	int count(Map<String,Object> map);
 	
-	@Options(useGeneratedKeys = true, keyProperty = "cid")
 	@Insert("insert into b_content (`title`, `slug`, `created`, `modified`, `content`, `type`, `tags`, `categories`, `hits`, `comments_num`, `allow_comment`, `allow_ping`, `allow_feed`, `status`, `author`)"
 	+ "values (#{title}, #{slug}, #{created}, #{modified}, #{content}, #{type}, #{tags}, #{categories}, #{hits}, #{commentsNum}, #{allowComment}, #{allowPing}, #{allowFeed}, #{status}, #{author})")
 	int save(BContentDO bContent);

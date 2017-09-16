@@ -10,7 +10,7 @@ import java.util.Date;
  * 
  * @author chglee
  * @email 1992lcg@163.com
- * @date 2017-09-10 19:27:42
+ * @date 2017-09-16 16:47:55
  */
 public class BCommentsDO implements Serializable {
 	private static final long serialVersionUID = 1L;

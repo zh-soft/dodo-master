@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.blog.dao.BCommentsDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.bootdo.blog.entity.BCommentsEntity" id="bCommentsMap">
+        <result property="id" column="id"/>
+        <result property="created" column="created"/>
+        <result property="title" column="title"/>
+        <result property="author" column="author"/>
+        <result property="authorId" column="author_id"/>
+        <result property="ownerId" column="owner_id"/>
+        <result property="email" column="email"/>
+        <result property="url" column="url"/>
+        <result property="ip" column="ip"/>
+        <result property="agent" column="agent"/>
+        <result property="content" column="content"/>
+        <result property="type" column="type"/>
+        <result property="status" column="status"/>
+        <result property="parent" column="parent"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.bootdo.blog.entity.BCommentsEntity">
+		select * from b_comments where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.bootdo.blog.entity.BCommentsEntity">
+		select * from b_comments
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from b_comments 
+	</select>
+	 
+	<insert id="save" parameterType="com.bootdo.blog.entity.BCommentsEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into b_comments
+		(
+			`created`, 
+			`title`, 
+			`author`, 
+			`author_id`, 
+			`owner_id`, 
+			`email`, 
+			`url`, 
+			`ip`, 
+			`agent`, 
+			`content`, 
+			`type`, 
+			`status`, 
+			`parent`
+		)
+		values
+		(
+			#{created}, 
+			#{title}, 
+			#{author}, 
+			#{authorId}, 
+			#{ownerId}, 
+			#{email}, 
+			#{url}, 
+			#{ip}, 
+			#{agent}, 
+			#{content}, 
+			#{type}, 
+			#{status}, 
+			#{parent}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.bootdo.blog.entity.BCommentsEntity">
+		update b_comments 
+		<set>
+			<if test="created != null">`created` = #{created}, </if>
+			<if test="title != null">`title` = #{title}, </if>
+			<if test="author != null">`author` = #{author}, </if>
+			<if test="authorId != null">`author_id` = #{authorId}, </if>
+			<if test="ownerId != null">`owner_id` = #{ownerId}, </if>
+			<if test="email != null">`email` = #{email}, </if>
+			<if test="url != null">`url` = #{url}, </if>
+			<if test="ip != null">`ip` = #{ip}, </if>
+			<if test="agent != null">`agent` = #{agent}, </if>
+			<if test="content != null">`content` = #{content}, </if>
+			<if test="type != null">`type` = #{type}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="parent != null">`parent` = #{parent}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from b_comments where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from b_comments where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

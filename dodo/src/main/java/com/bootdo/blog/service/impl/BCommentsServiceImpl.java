@@ -2,7 +2,6 @@ package com.bootdo.blog.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
@@ -13,13 +12,13 @@ import com.bootdo.blog.service.BCommentsService;
 
 
 
-@Service("bCommentsService")
+@Service
 public class BCommentsServiceImpl implements BCommentsService {
 	@Autowired
 	private BCommentsMapper bCommentsMapper;
 	
 	@Override
-	public BCommentsDO get(Long id){
+	public BCommentsDO get(Integer id){
 		return bCommentsMapper.get(id);
 	}
 	
@@ -49,7 +48,7 @@ public class BCommentsServiceImpl implements BCommentsService {
 	}
 	
 	@Override
-	public int batchRemove( Integer[] ids){
+	public int batchRemove(Integer[] ids){
 		return bCommentsMapper.batchRemove(ids);
 	}
 	

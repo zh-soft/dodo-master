@@ -15,13 +15,13 @@ import org.apache.ibatis.annotations.Update;
  * 
  * @author chglee
  * @email 1992lcg@163.com
- * @date 2017-09-10 19:27:42
+ * @date 2017-09-16 16:47:55
  */
 @Mapper
 public interface BCommentsMapper {
 
 	@Select("select `id`, `created`, `title`, `author`, `author_id`, `owner_id`, `email`, `url`, `ip`, `agent`, `content`, `type`, `status`, `parent` from b_comments where id = #{id}")
-	BCommentsDO get(Long id);
+	BCommentsDO get(Integer id);
 	
 	@Select("<script>" +
 	"select * from b_comments " + 

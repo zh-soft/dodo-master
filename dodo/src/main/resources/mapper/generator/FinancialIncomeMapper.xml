@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.blog.dao.FinancialIncomeDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.bootdo.blog.entity.FinancialIncomeEntity" id="financialIncomeMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="incomeType" column="income_type"/>
+        <result property="incomeAmount" column="income_amount"/>
+        <result property="unit" column="unit"/>
+        <result property="incomeDate" column="income_date"/>
+        <result property="incomeStatus" column="income_status"/>
+        <result property="dataUrl" column="data_url"/>
+        <result property="description" column="description"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createUser" column="create_user"/>
+        <result property="updateUser" column="update_user"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.bootdo.blog.entity.FinancialIncomeEntity">
+		select * from financial_income where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.bootdo.blog.entity.FinancialIncomeEntity">
+		select * from financial_income
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from financial_income 
+	</select>
+	 
+	<insert id="save" parameterType="com.bootdo.blog.entity.FinancialIncomeEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into financial_income
+		(
+			`user_id`, 
+			`income_type`, 
+			`income_amount`, 
+			`unit`, 
+			`income_date`, 
+			`income_status`, 
+			`data_url`, 
+			`description`, 
+			`create_time`, 
+			`update_time`, 
+			`create_user`, 
+			`update_user`
+		)
+		values
+		(
+			#{userId}, 
+			#{incomeType}, 
+			#{incomeAmount}, 
+			#{unit}, 
+			#{incomeDate}, 
+			#{incomeStatus}, 
+			#{dataUrl}, 
+			#{description}, 
+			#{createTime}, 
+			#{updateTime}, 
+			#{createUser}, 
+			#{updateUser}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.bootdo.blog.entity.FinancialIncomeEntity">
+		update financial_income 
+		<set>
+			<if test="userId != null">`user_id` = #{userId}, </if>
+			<if test="incomeType != null">`income_type` = #{incomeType}, </if>
+			<if test="incomeAmount != null">`income_amount` = #{incomeAmount}, </if>
+			<if test="unit != null">`unit` = #{unit}, </if>
+			<if test="incomeDate != null">`income_date` = #{incomeDate}, </if>
+			<if test="incomeStatus != null">`income_status` = #{incomeStatus}, </if>
+			<if test="dataUrl != null">`data_url` = #{dataUrl}, </if>
+			<if test="description != null">`description` = #{description}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="updateTime != null">`update_time` = #{updateTime}, </if>
+			<if test="createUser != null">`create_user` = #{createUser}, </if>
+			<if test="updateUser != null">`update_user` = #{updateUser}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from financial_income where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from financial_income where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
