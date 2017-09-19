@@ -71,11 +71,13 @@ public class BContentController {
 	String add(){
 	    return "blog/bContent/add";
 	}
-	@GetMapping("/edit")
+
+
+	@GetMapping("/edit/{cid}")
 	//@RequiresPermissions("blog:bComments")
-	String edit(Long cid,ModelMap model){
+	String edit(@PathVariable("cid") Long cid,ModelMap model){
 		BContentDO bContent = bContentService.get(cid);
-		model.addAttribute("BContent", bContent);
+		model.addAttribute("bContent", bContent);
 	    return "blog/bContent/edit";
 	}
 	/**
