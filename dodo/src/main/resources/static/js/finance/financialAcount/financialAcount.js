@@ -1,6 +1,5 @@
 
-
-var prefix = "/blog/bComments"
+var prefix = "/finance/financialAcount"
 $(function() {
 	load();
 });
@@ -34,8 +33,8 @@ function load() {
 								//说明：传入后台的参数包括offset开始索引，limit步长，sort排序列，order：desc或者,以及所有列的键值对
 								limit: params.limit,
 								offset:params.offset
-					            //name:$('#searchName').val(),
-					          //  username:$('#searchName').val()
+					           // name:$('#searchName').val(),
+					           // username:$('#searchName').val()
 							};
 						},
 						// //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
@@ -50,59 +49,51 @@ function load() {
 								},
 																{
 									field : 'id', 
-									title : '主键' 
+									title : 'id ' 
 								},
 																{
-									field : 'coid', 
-									title : '' 
+									field : 'expendId', 
+									title : '财务支出id' 
 								},
 																{
-									field : 'created', 
-									title : '创建者' 
+									field : 'incomeId', 
+									title : '财务收入id' 
 								},
 																{
-									field : 'author', 
-									title : '作者' 
+									field : 'acountType', 
+									title : '支出类型 income,expend' 
 								},
 																{
-									field : 'authorId', 
-									title : '作者编号' 
+									field : 'totalExpend', 
+									title : '支出金额' 
 								},
 																{
-									field : 'ownerId', 
-									title : '归属人编号' 
+									field : 'totalIncome', 
+									title : '收入金额' 
 								},
 																{
-									field : 'email', 
-									title : '邮箱' 
+									field : 'totalAcount', 
+									title : '当前总金额' 
 								},
 																{
-									field : 'url', 
-									title : '链接地址' 
+									field : 'oldAcount', 
+									title : '前一期账户金额' 
 								},
 																{
-									field : 'ip', 
-									title : 'ip地址' 
+									field : 'createTime', 
+									title : '创建时间' 
 								},
 																{
-									field : 'agent', 
-									title : '代理人' 
+									field : 'updateTime', 
+									title : '更新时间' 
 								},
 																{
-									field : 'content', 
-									title : '内容' 
+									field : 'createUser', 
+									title : '创建人' 
 								},
 																{
-									field : 'type', 
-									title : '类型' 
-								},
-																{
-									field : 'status', 
-									title : '状态' 
-								},
-																{
-									field : 'parent', 
-									title : '原始文章' 
+									field : 'updateUser', 
+									title : '更新人' 
 								},
 																{
 									title : '操作',
@@ -127,16 +118,14 @@ function reLoad() {
 	$('#exampleTable').bootstrapTable('refresh');
 }
 function add() {
-	$("#content").val($('#content').code());
-	var perContent= layer.open({
+	layer.open({
 		type : 2,
-		title : '发布文章',
+		title : '增加',
 		maxmin : true,
 		shadeClose : false, // 点击遮罩关闭层
 		area : [ '800px', '520px' ],
 		content : prefix + '/add' // iframe的url
 	});
-	 layer.full(perContent);
 }
 function edit(id) {
 	layer.open({
@@ -174,7 +163,6 @@ function resetPwd(id) {
 }
 function batchRemove() {
 	var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组
-	
 	if (rows.length == 0) {
 		layer.msg("请选择要删除的数据");
 		return;
@@ -183,7 +171,6 @@ function batchRemove() {
 		btn : [ '确定', '取消' ]
 	// 按钮
 	}, function() {
-		
 		var ids = new Array();
 		// 遍历所有选择的行数据，取每条数据对应的ID
 		$.each(rows, function(i, row) {

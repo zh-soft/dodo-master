@@ -84,7 +84,7 @@ public class BContentController {
 	 * 信息
 	 */
 	@RequestMapping("/info/{cid}")
-	@RequiresPermissions("blog:info")
+//	@RequiresPermissions("blog:info")
 	public R info(@PathVariable("cid") Long cid){
 		BContentDO bContent = bContentService.get(cid);
 		return R.ok().put("bContent", bContent);
